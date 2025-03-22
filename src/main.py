@@ -1,3 +1,4 @@
+import pygame
 from Slayer import Player
 from yapper import yapper
 from pygame.locals import (
@@ -64,13 +65,6 @@ while running:
         screen.fill("purple")  # Fill the display with a solid color
     if neuphonicGameMode:
         screen.fill("red")
-<<<<<<< HEAD
-    # Render the graphics here.
-    # ...
-
-    pygame.display.flip()  # Refresh on-screen display
-    clock.tick(60)         # wait until next frame (at 60 FPS)
-=======
 
     # Draw the player on the screen
     all_sprites.draw(screen)
@@ -79,4 +73,3 @@ while running:
     clock.tick(60)
 
 win = pygame.display.set_mode((1920,960))
->>>>>>> 44639507b81e744bd4f342a0b748aaa964993779

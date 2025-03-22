@@ -2,6 +2,7 @@ import pygame
 from Slayer import Player
 from flowerStage import flowerStage
 from homeStage import homeStage
+from gameState import gameState
 from yapper import yapper
 from rock import rockStage
 from pygame.locals import (
@@ -43,9 +44,10 @@ neuphonicGameMode=False
 #announcer =speakOrSomething()
 #announcer.yap("Welcome to the game")
 # Main loop
-stage = flowerStage()
-currentStage = 5
 
+
+
+gs=gameState([homeStage(0),rockStage(),rockStage(),flowerStage(),rockStage()])
 while running:
 
     for event in pygame.event.get():
@@ -63,17 +65,16 @@ while running:
     pressed_keys = pygame.key.get_pressed()
 
 
-    all_sprites.update(pressed_keys, stage, currentStage)
+    all_sprites.update(pressed_keys)
 
     # Fill the screen with black
-    # rock.draw(screen,player)
+    gs.drawState(screen,player,images)
     # if not neuphonicGameMode:
     #     screen.fill("purple")  # Fill the display with a solid color
     # if neuphonicGameMode:
     #     screen.fill("red")
 
     # Draw the player on the screen
-    stage.update(player, screen, images)
 
     all_sprites.draw(screen)
 

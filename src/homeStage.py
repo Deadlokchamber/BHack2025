@@ -25,7 +25,8 @@ class homeStage:
 
 
 
-
+    def update(self,win,player,bgImage):
+        self.draw(win,bgImage)
 
 
     def draw(self, win,bgImage):

@@ -1,4 +1,5 @@
 import pygame.image
+
 #0 Horizontal middle  #1 left endpoint #2 right endpoint #3 Verticle Middle #4 bottom endpoint # 5 top endpoint
 fenceSprite = [pygame.image.load_extended("../Images/Fence/fence3.png"),pygame.image.load_extended("../Images/Fence/fence4.png"),
                pygame.transform.flip(pygame.image.load_extended("../Images/Fence/fence4.png"),True,False),
@@ -21,13 +22,21 @@ class fence:
 
 
 class loadZone:
-    def __init__(self,x,y,destination,destinationX,destinationY):
+    def __init__(self,x,y,destination,destinationX,destinationY,width=32,height=32):
         self.x = x
         self.y = y
-        self.hitbox = pygame.Rect(self.x,self.y,32,32)
+        self.width=width
+        self.height=height
+        self.hitbox = pygame.Rect(self.x,self.y,width,height)
         self.destination = destination
         self.destinationX = destinationX
         self.destinationY = destinationY
+    def check(self,player):
+        playerRect=player.rect
+        if playerRect.colliderect(self.hitbox):
+            player.rect.center=(self.destinationX,self.destinationY)
+            return True
+        return False
 
 class flowerPatch:
     def __init__(self,x,y, discovered):

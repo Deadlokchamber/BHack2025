@@ -1,6 +1,13 @@
 import pygame.image
+#0 Horizontal middle  #1 left endpoint #2 right endpoint #3 Verticle Middle #4 bottom endpoint # 5 top endpoint
+fenceSprite = [pygame.image.load_extended("../Images/Fence/fence3.png"),pygame.image.load_extended("../Images/Fence/fence4.png"),
+               pygame.transform.flip(pygame.image.load_extended("../Images/Fence/fence4.png"),True,False),
+               pygame.transform.rotate(pygame.image.load_extended("../Images/Fence/fence3.png"),90),
+               pygame.transform.rotate(pygame.image.load_extended("../Images/Fence/fence4.png"),90),
+               pygame.transform.rotate(pygame.image.load_extended("../Images/Fence/fence4.png"),-90)
+               ]
 
-fenceSprite = [pygame.image.load_extended("../Images/Fence/fence3.png"),pygame.image.load_extended("../Images/Fence/fence4.png")]
+
 
 class fence:
     def __init__(self,x,y,sprite):

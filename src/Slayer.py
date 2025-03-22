@@ -1,4 +1,5 @@
 import pygame
+from constants import *
 from pygame.locals import (
     K_UP,
     K_DOWN,
@@ -16,8 +17,8 @@ class Player(pygame.sprite.Sprite):
         self.image_left = pygame.image.load('../Images/Clunk/clunk-left.png')
         self.image_right = pygame.image.load('../Images/Clunk/clunk-right.png')
         self.image = self.image_down
-        self.sw = sw
-        self.sh = sh
+        self.sw = WIDTH
+        self.sh = HEIGHT
 
         
 
@@ -49,3 +50,5 @@ class Player(pygame.sprite.Sprite):
             self.rect.top = 0
         if self.rect.bottom >= self.sh:
             self.rect.bottom = self.sh
+    
+    

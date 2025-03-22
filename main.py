@@ -4,6 +4,8 @@ pygame.init()
 
 screen = pygame.display.set_mode((1280,720))
 
+clunk = pygame.image.load_extended("Images/Clunk/clunk.jpg")
+
 clock = pygame.time.Clock()
 
 while True:

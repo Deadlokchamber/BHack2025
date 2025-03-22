@@ -8,6 +8,7 @@ class Game:
     def __init__(self):
         pg.init()
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))
+        
         pg.display.set_caption(TITLE)
         self.clock = pg.time.Clock()
         self.load_data()
@@ -16,6 +17,8 @@ class Game:
         
     def load_data(self):
         self.map = Map('map3.txt')
+        self.background = pg.image.load('../Images/treeback.png') 
+        self.background = pg.transform.scale(self.background, (WIDTH, HEIGHT))
 
     def new(self):
         # initialize all variables and do all the setup for a new game
@@ -52,14 +55,15 @@ class Game:
         self.camera.update(self.player)
 
     def draw_grid(self):
+
         for x in range(0, WIDTH, TILESIZE):
-            pg.draw.line(self.screen, LIGHTGREY, (x, 0), (x, HEIGHT))
+            pg.draw.line(self.screen, LIGHTGREY , (x, 0), (x, HEIGHT))
         for y in range(0, HEIGHT, TILESIZE):
             pg.draw.line(self.screen, LIGHTGREY, (0, y), (WIDTH, y))
 
     def draw(self):
-        self.screen.fill(BGCOLOR)
-        self.draw_grid()
+        self.screen.blit(self.background, (0, 0))
+        #self.draw_grid()
         for sprite in self.all_sprites:
             self.screen.blit(sprite.image, self.camera.apply(sprite))
         pg.display.flip()

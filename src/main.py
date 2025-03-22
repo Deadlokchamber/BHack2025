@@ -1,6 +1,9 @@
 import pygame
 from Slayer import Player
+from flowerStage import flowerStage
+from homeStage import homeStage
 from yapper import yapper
+from rock import rockStage
 from pygame.locals import (
 
     K_ESCAPE,
@@ -16,7 +19,7 @@ def sysQuit():
     pygame.quit()
     raise SystemExit
 
-
+images=input("Do you want background images on?(y/n): ").lower()=='y'
 pygame.init()
 
 # Define constants for the screen width and height
@@ -33,13 +36,16 @@ player = Player(SCREEN_WIDTH, SCREEN_HEIGHT)
 all_sprites.add(player)
 
 clock = pygame.time.Clock()
-
+rock = rockStage()
 # Variable to keep the main loop running
 running = True
 neuphonicGameMode=False
 #announcer =speakOrSomething()
 #announcer.yap("Welcome to the game")
 # Main loop
+stage = homeStage(1)
+currentStage = 0
+
 while running:
 
     for event in pygame.event.get():
@@ -57,17 +63,19 @@ while running:
     pressed_keys = pygame.key.get_pressed()
 
 
-    all_sprites.update(pressed_keys)
+    all_sprites.update(pressed_keys, stage, currentStage)
 
     # Fill the screen with black
-
-    if not neuphonicGameMode:
-        screen.fill("purple")  # Fill the display with a solid color
-    if neuphonicGameMode:
-        screen.fill("red")
+    # rock.draw(screen,player)
+    # if not neuphonicGameMode:
+    #     screen.fill("purple")  # Fill the display with a solid color
+    # if neuphonicGameMode:
+    #     screen.fill("red")
 
     # Draw the player on the screen
+    stage.draw(screen,images)
     all_sprites.draw(screen)
+
     # Update the display
     pygame.display.flip()  # Refresh on-screen display
     clock.tick(60)

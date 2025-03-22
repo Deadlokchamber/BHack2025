@@ -11,10 +11,10 @@ from pygame.locals import (
 class Player(pygame.sprite.Sprite):
     def __init__(self, sw, sh):
         super(Player, self).__init__()
-        self.image_up = pygame.image.load('Images/Clunk/clunk-forward.png')
-        self.image_down = pygame.image.load('Images/Clunk/clunk-backward.png')
-        self.image_left = pygame.image.load('Images/Clunk/clunk-left.png')
-        self.image_right = pygame.image.load('Images/Clunk/clunk-right.png')
+        self.image_up = pygame.image.load('../Images/Clunk/clunk-forward.png')
+        self.image_down = pygame.image.load('../Images/Clunk/clunk-backward.png')
+        self.image_left = pygame.image.load('../Images/Clunk/clunk-left.png')
+        self.image_right = pygame.image.load('../Images/Clunk/clunk-right.png')
         self.image = self.image_down
         self.sw = sw
         self.sh = sh

@@ -51,7 +51,7 @@ while running:
                 running = False
         # Check for QUIT event. If QUIT, then set running to false.
         elif event.type == QUIT:
-            print("Yeetis")
+            print("Yeetos")
             running = False
     # Get the set of keys pressed and check for user input
     pressed_keys = pygame.key.get_pressed()

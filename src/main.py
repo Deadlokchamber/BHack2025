@@ -1,6 +1,7 @@
 import pygame
 from Slayer import Player
 from src.flowerStage import flowerStage
+from src.homeStage import homeStage
 from yapper import yapper
 from pygame.locals import (
 
@@ -41,8 +42,8 @@ neuphonicGameMode=False
 #announcer =speakOrSomething()
 #announcer.yap("Welcome to the game")
 # Main loop
-stage = flowerStage()
-currentStage = 5
+stage = homeStage(1)
+currentStage = 0
 while running:
 
     for event in pygame.event.get():
@@ -70,7 +71,7 @@ while running:
         screen.fill("red")
 
     # Draw the player on the screen
-    stage.update(player,screen)
+    stage.draw(screen)
     all_sprites.draw(screen)
 
     # Update the display

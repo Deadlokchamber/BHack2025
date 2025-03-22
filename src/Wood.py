@@ -9,7 +9,6 @@ class Game:
         pg.init()
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))
         
-        pg.display.set_caption(TITLE)
         self.clock = pg.time.Clock()
         self.load_data()
         self.mobs =[]
@@ -18,10 +17,12 @@ class Game:
     def load_data(self):
         self.map = Map('map3.txt')
         self.background = pg.image.load('../Images/treeback.png') 
-        self.background = pg.transform.scale(self.background, (WIDTH, HEIGHT))
+        
 
     def new(self):
         # initialize all variables and do all the setup for a new game
+        
+        self.background = pg.transform.scale(self.background, (WIDTH, HEIGHT))
         self.all_sprites = pg.sprite.Group()
         self.walls = pg.sprite.Group()
         for row, tiles in enumerate(self.map.data):

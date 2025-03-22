@@ -3,7 +3,8 @@ import pygame.image
 from block import fence, loadZone
 
 stageSprite = pygame.image.load_extended("../Images/Stages/HomeStage.png")
-houseSprites = [pygame.image.load("../Images/House/House0.png"),pygame.image.load("../Images/House/House1.png")]
+houseSprites = [pygame.image.load("../Images/House/House0.png"),pygame.image.load("../Images/House/House1.png"),pygame.image.load("../Images/House/House2.png"),pygame.image.load("../Images/House/House3.png"),pygame.image.load("../Images/House/House4.png")]
+sheepSprite =pygame.image.load("../Images/House/Sheep.png")
 
 class homeStage:
     def __init__(self,houseCount):
@@ -26,11 +27,18 @@ class homeStage:
 
 
 
+
     def draw(self, win,bgImage):
         if bgImage:
             win.blit(stageSprite,(0,0))
         else:
             win.fill("green")
-        win.blit(houseSprites[self.houseCount], (340,280))
+        if self.houseCount == 4:
+            win.blit(houseSprites[4], (340, 180))
+            win.blit(sheepSprite, (800, 20))
+        elif self.houseCount > 1:
+            win.blit(houseSprites[self.houseCount], (340, 180))
+        else:
+            win.blit(houseSprites[self.houseCount], (340, 280))
         for frame in self.fences:
             frame.draw(win)

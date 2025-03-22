@@ -9,13 +9,13 @@ from pygame.locals import (
     QUIT,
 )
 class Player(pygame.sprite.Sprite):
-    def __init__(self, SCREEN_WIDTH, SCREEN_HEIGHT):
+    def __init__(self):
         super(Player, self).__init__()
         self.surf = pygame.Surface((75, 25))
         self.surf.fill((255, 255, 255))
         self.rect = self.surf.get_rect()
-        self.sw = SCREEN_WIDTH
-        self.sh = SCREEN_HEIGHT
+        self.sw = 800
+        self.sh = 600
     # Move the sprite based on user keypresses
     def update(self, pressed_keys):
         if pressed_keys[K_UP]:

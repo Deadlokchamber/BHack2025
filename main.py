@@ -1,10 +1,7 @@
 import pygame
-import Slayer
+from Slayer import Player
 from pygame.locals import (
-    K_UP,
-    K_DOWN,
-    K_LEFT,
-    K_RIGHT,
+
     K_ESCAPE,
     KEYDOWN,
     QUIT,
@@ -28,7 +25,7 @@ SCREEN_HEIGHT = 600
 # The size is determined by the constant SCREEN_WIDTH and SCREEN_HEIGHT
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
-player = Slayer(SCREEN_WIDTH, SCREEN_HEIGHT)
+player = Player()
 
 clock = pygame.time.Clock()
 
@@ -62,6 +59,3 @@ while running:
     pygame.display.flip()
 
 win = pygame.display.set_mode((1920,960))
-
-while True:
-    print("running")

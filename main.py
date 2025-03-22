@@ -27,15 +27,18 @@ SCREEN_HEIGHT = 600
 # The size is determined by the constant SCREEN_WIDTH and SCREEN_HEIGHT
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
+all_sprites = pygame.sprite.Group()
+
 player = Player()
+all_sprites.add(player)
 
 clock = pygame.time.Clock()
 
 # Variable to keep the main loop running
 running = True
 neuphonicGameMode=False
-announcer =speakOrSomething()
-announcer.yap("Welcome to the game")
+#announcer =speakOrSomething()
+#announcer.yap("Welcome to the game")
 # Main loop
 while running:
 
@@ -44,14 +47,17 @@ while running:
         if event.type == KEYDOWN:
             # If the Esc key is pressed, then exit the main loop
             if event.key == K_ESCAPE:
+                print("Yeet")
                 running = False
         # Check for QUIT event. If QUIT, then set running to false.
         elif event.type == QUIT:
+            print("Yeetos")
             running = False
     # Get the set of keys pressed and check for user input
     pressed_keys = pygame.key.get_pressed()
 
-    player.update(pressed_keys)
+
+    all_sprites.update(pressed_keys)
 
     # Fill the screen with black
     if not neuphonicGameMode:
@@ -60,8 +66,7 @@ while running:
         screen.fill("red")
 
     # Draw the player on the screen
-    screen.blit(player.surf, player.rect)
-
+    all_sprites.draw(screen)
     # Update the display
     pygame.display.flip()  # Refresh on-screen display
     clock.tick(60)

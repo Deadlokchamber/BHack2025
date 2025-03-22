@@ -11,21 +11,35 @@ from pygame.locals import (
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super(Player, self).__init__()
-        self.surf = pygame.Surface((75, 25))
-        self.surf.fill((255, 255, 255))
-        self.rect = self.surf.get_rect()
+        self.image_up = pygame.image.load('Images/Clunk/clunk-forward.png')
+        self.image_down = pygame.image.load('Images/Clunk/clunk-backward.png')
+        self.image_left = pygame.image.load('Images/Clunk/clunk-left.png')
+        self.image_right = pygame.image.load('Images/Clunk/clunk-right.png')
+        self.image = self.image_down
         self.sw = 800
         self.sh = 600
+
+        
+
+
+
+        self.rect = self.image.get_rect()
+        self.rect.center = (self.sw // 2, self.sh // 2)
+
     # Move the sprite based on user keypresses
     def update(self, pressed_keys):
         if pressed_keys[K_UP]:
             self.rect.move_ip(0, -5)
+            self.image = self.image_down
         if pressed_keys[K_DOWN]:
             self.rect.move_ip(0, 5)
+            self.image = self.image_up
         if pressed_keys[K_LEFT]:
             self.rect.move_ip(-5, 0)
+            self.image = self.image_left
         if pressed_keys[K_RIGHT]:
             self.rect.move_ip(5, 0) 
+            self.image = self.image_right
         # Keep player on the screen
         if self.rect.left < 0:
             self.rect.left = 0

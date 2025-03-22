@@ -3,6 +3,7 @@ from Slayer import Player
 from src.flowerStage import flowerStage
 from src.homeStage import homeStage
 from yapper import yapper
+from rock import rockStage
 from pygame.locals import (
 
     K_ESCAPE,
@@ -35,7 +36,7 @@ player = Player(SCREEN_WIDTH, SCREEN_HEIGHT)
 all_sprites.add(player)
 
 clock = pygame.time.Clock()
-
+rock = rockStage()
 # Variable to keep the main loop running
 running = True
 neuphonicGameMode=False
@@ -64,11 +65,11 @@ while running:
     all_sprites.update(pressed_keys, stage, currentStage)
 
     # Fill the screen with black
-
-    if not neuphonicGameMode:
-        screen.fill("purple")  # Fill the display with a solid color
-    if neuphonicGameMode:
-        screen.fill("red")
+    rock.draw(screen,player)
+    # if not neuphonicGameMode:
+    #     screen.fill("purple")  # Fill the display with a solid color
+    # if neuphonicGameMode:
+    #     screen.fill("red")
 
     # Draw the player on the screen
     stage.draw(screen)

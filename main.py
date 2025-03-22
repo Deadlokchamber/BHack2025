@@ -4,7 +4,7 @@ pygame.init()
 
 screen = pygame.display.set_mode((1280,720))
 
-clunk = pygame.image.load_extended("Images/Clunk/clunk.jpg")
+clunk = pygame.image.load_extended("Images/Clunk/clunk-forward.png")
 
 clock = pygame.time.Clock()
 

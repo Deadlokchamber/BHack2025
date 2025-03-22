@@ -20,8 +20,8 @@ def sysQuit():
 pygame.init()
 
 # Define constants for the screen width and height
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
+SCREEN_WIDTH = 1920
+SCREEN_HEIGHT = 1080
 
 # Create the screen object
 # The size is determined by the constant SCREEN_WIDTH and SCREEN_HEIGHT
@@ -29,7 +29,7 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 all_sprites = pygame.sprite.Group()
 
-player = Player()
+player = Player(SCREEN_WIDTH, SCREEN_HEIGHT)
 all_sprites.add(player)
 
 clock = pygame.time.Clock()

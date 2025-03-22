@@ -1,5 +1,6 @@
 import pygame
 from Slayer import Player
+from yapper import speakOrSomething
 from pygame.locals import (
 
     K_ESCAPE,
@@ -14,6 +15,7 @@ from pygame.locals import (
 def sysQuit():
     pygame.quit()
     raise SystemExit
+
 
 pygame.init()
 
@@ -31,10 +33,12 @@ clock = pygame.time.Clock()
 
 # Variable to keep the main loop running
 running = True
-
+neuphonicGameMode=False
+announcer =speakOrSomething()
+announcer.yap("Welcome to the game")
 # Main loop
 while running:
-    # for loop through the event queue
+
     for event in pygame.event.get():
         # Check for KEYDOWN event
         if event.type == KEYDOWN:
@@ -50,12 +54,16 @@ while running:
     player.update(pressed_keys)
 
     # Fill the screen with black
-    screen.fill((0, 0, 0))
+    if not neuphonicGameMode:
+        screen.fill("purple")  # Fill the display with a solid color
+    if neuphonicGameMode:
+        screen.fill("red")
 
     # Draw the player on the screen
     screen.blit(player.surf, player.rect)
 
     # Update the display
-    pygame.display.flip()
+    pygame.display.flip()  # Refresh on-screen display
+    clock.tick(60)
 
 win = pygame.display.set_mode((1920,960))

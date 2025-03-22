@@ -1,14 +1,16 @@
 import pygame
-
+from yapper import speakOrSomething
 pygame.init()
 
 screen = pygame.display.set_mode((1280,720))
 
 clock = pygame.time.Clock()
 
-neuphonicGameMode=True
-
+neuphonicGameMode=False
+announcer =speakOrSomething()
+announcer.yap("Welcome to the game")
 while True:
+    
     # Process player inputs.
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

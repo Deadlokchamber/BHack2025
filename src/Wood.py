@@ -29,6 +29,8 @@ class Game:
                     self.player = Player(self, col, row)
                 if tile == 'M':
                     self.mobs.append(Mob(self, col, row))
+                if tile == 'W':
+                    self.goal = Wood(self, col, row)
         self.camera = Camera(self.map.width, self.map.height)
 
     def run(self):

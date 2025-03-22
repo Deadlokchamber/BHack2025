@@ -2,10 +2,23 @@ from random import randint
 import pygame as pg
 from constants import *
 from Slayer import Player
+from tilemap import Map
 vec = pg.math.Vector2
 
 
-
+class Wood(pg.sprite.Sprite):
+    
+    def __init__(self, game, x, y):
+        self.groups = game.all_sprites
+        pg.sprite.Sprite.__init__(self, self.groups)
+        self.game = game
+        self.image = pg.Surface((TILESIZE, TILESIZE))
+        self.image.fill(YELLOW)
+        self.rect = self.image.get_rect()
+        self.x = x
+        self.y = y
+        self.rect.x = x * TILESIZE
+        self.rect.y = y * TILESIZE
 
 class Player(Player):
     def __init__(self, game, x, y):
@@ -42,7 +55,28 @@ class Player(Player):
 
         for mob in self.game.mobs:
             if mob.x == target_x and mob.y == target_y:
-                mob.kill()  
+                self.game.mobs.remove(mob)
+                mob.kill() 
+                
+                if len(self.game.mobs) == 0:
+                    
+                    temp = [self.x, self.y]
+                    imgtemp = self.image
+                    
+                    # Keep the player’s current position in temp
+                    current_player_x, current_player_y = self.x, self.y
+                    self.kill()
+                    
+
+                    self.game.map = Map("map1.txt")  # Swap maps when enemies are dead
+                    self.game.new() 
+                    
+                    self.player = Player(self.game, current_player_x, current_player_y)  # Respawn player at the same position
+                    self.player.image = imgtemp
+                    self.game.all_sprites.add(self.player)  # Add the new player to the sprite group
+        
+        # Rebind the controls (if applicable)
+                    self.game.player = self.player  # Make sure the game knows about the new player instance
                 return  
     def move(self, dx=0, dy=0):
         if not self.collide_with_walls(dx, dy):

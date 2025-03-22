@@ -81,6 +81,11 @@ class flowerStage:
 
         self.draw(win,bgImage)
 
+        for flower in self.flowers:
+            if flower.hitbox.colliderect(player.rect):
+                flower.discovered = True
+                player.rect.center = (608, 0)
+
 
     def draw(self, win,bgImage):
         if bgImage:

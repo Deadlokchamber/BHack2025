@@ -1,6 +1,7 @@
 import pygame.image
 
 from block import fence, loadZone
+from gameState import gameState
 
 stageSprite = pygame.image.load_extended("../Images/Stages/HomeStage.png")
 houseSprites = [pygame.image.load("../Images/House/House0.png"),pygame.image.load("../Images/House/House1.png"),pygame.image.load("../Images/House/House2.png"),pygame.image.load("../Images/House/House3.png"),pygame.image.load("../Images/House/House4.png")]
@@ -15,17 +16,21 @@ class homeStage:
                        fence(544,0,3),fence(544,32,5),fence(640,0,3),fence(640,32,5),
                        fence(544, 768, 3), fence(544, 736, 4), fence(640, 768, 3), fence(640, 736, 4),
                        ]
-        if (houseCount ==0):
+        if houseCount ==0:
             self.loadZones = [loadZone(0,368, 1, 768, 384),loadZone(0,400, 1, 768, 384) ]
-        if (houseCount ==2):
+        elif houseCount ==2:
             self.loadZones = [loadZone(768,368, 3, 0, 384),loadZone(768,400, 3, 0, 384)]
-        if houseCount ==3:
-            self.loadZones = [loadZone(576,768, 4, 592, 1),loadZone(608,768, 4, 592, 1)]
+        elif houseCount ==3:
+            self.loadZones = [loadZone(576,768, 3, 592, 48),loadZone(608,768, 3, 592, 48)]
 
 
 
 
     def update(self,win,player,bgImage):
+        for zone in self.loadZones:
+            if zone.check(player):
+                gameState.state=zone.destination
+                return
         self.draw(win,bgImage)
 
 
@@ -43,3 +48,5 @@ class homeStage:
             win.blit(houseSprites[self.houseCount], (340, 280))
         for frame in self.fences:
             frame.draw(win)
+        for zone in self.loadZones:
+            pygame.draw.rect(win,"red",zone.hitbox)

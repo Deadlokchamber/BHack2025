@@ -2,6 +2,7 @@ import random
 
 from homeStage import stageSprite
 from block import *
+from gameState import gameState
 
 stageSprite = pygame.image.load_extended("../Images/Stages/flowerStage.png")
 flowerbedSprite = pygame.image.load_extended("../Images/flowerPile.png")
@@ -12,6 +13,7 @@ class flowerStage:
         self.mazeTimer = 600
         self.squares = []
         self.patch = self.populatePatch()
+        self.loadZones = [loadZone(576,0,0,592,736,96,5)]
 
         self.flowers = [flowerPatch(528,0,True),flowerPatch(528,48,True),flowerPatch(656,0,True),flowerPatch(656,48,True)
                        ,flowerPatch(704,48,True),flowerPatch(752,48,True),flowerPatch(800,48,True),flowerPatch(848,48,True)
@@ -67,8 +69,12 @@ class flowerStage:
                 pathed = True
         return patchBuild
 
-    def update(self, player,win,bgImage):
+    def update(self, win,player,bgImage):
         player.moveSpeed=3
+        for zone in self.loadZones:
+            if zone.check(player):
+                gameState.state=zone.destination
+                return
         if self.mazeTimer>0:
             player.canMove=False
             self.mazeTimer -= 1
@@ -80,6 +86,8 @@ class flowerStage:
                 self.flowerBedCollect = True
 
         self.draw(win,bgImage)
+
+
 
         for flower in self.flowers:
             if flower.hitbox.colliderect(player.rect):
@@ -103,6 +111,7 @@ class flowerStage:
 
         if not self.flowerBedCollect:
             win.blit(flowerbedSprite,self.flowerbedRect)
+
 
 
 

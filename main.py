@@ -1,28 +1,66 @@
 import pygame
+import Slayer
+from pygame.locals import (
+    K_UP,
+    K_DOWN,
+    K_LEFT,
+    K_RIGHT,
+    K_ESCAPE,
+    KEYDOWN,
+    QUIT,
+)
+# Define a Player object by extending pygame.sprite.Sprite
+# The surface drawn on the screen is now an attribute of 'player'
+
+
+
+def sysQuit():
+    pygame.quit()
+    raise SystemExit
 
 pygame.init()
 
-screen = pygame.display.set_mode((1280,720))
+# Define constants for the screen width and height
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+
+# Create the screen object
+# The size is determined by the constant SCREEN_WIDTH and SCREEN_HEIGHT
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+
+player = Slayer(SCREEN_WIDTH, SCREEN_HEIGHT)
 
 clock = pygame.time.Clock()
 
-while True:
-    # Process player inputs.
+# Variable to keep the main loop running
+running = True
+
+# Main loop
+while running:
+    # for loop through the event queue
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            raise SystemExit
+        # Check for KEYDOWN event
+        if event.type == KEYDOWN:
+            # If the Esc key is pressed, then exit the main loop
+            if event.key == K_ESCAPE:
+                running = False
+        # Check for QUIT event. If QUIT, then set running to false.
+        elif event.type == QUIT:
+            running = False
+    # Get the set of keys pressed and check for user input
+    pressed_keys = pygame.key.get_pressed()
 
-    # Do logical updates here.
-    # ...
+    player.update(pressed_keys)
 
-    screen.fill("purple")  # Fill the display with a solid color
+    # Fill the screen with black
+    screen.fill((0, 0, 0))
 
-    # Render the graphics here.
-    # ...
+    # Draw the player on the screen
+    screen.blit(player.surf, player.rect)
 
-    pygame.display.flip()  # Refresh on-screen display
-    clock.tick(60)         # wait until next frame (at 60 FPS)
+    # Update the display
+    pygame.display.flip()
+
 win = pygame.display.set_mode((1920,960))
 
 while True:

@@ -28,7 +28,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.center = (self.sw // 2, self.sh // 2)
 
     # Move the sprite based on user keypresses
-    def update(self, pressed_keys, stage, stageNumber):
+    def update(self, pressed_keys):
         if self.canMove:
             if pressed_keys[K_UP]:
                self.rect.move_ip(0, -5)
@@ -52,8 +52,7 @@ class Player(pygame.sprite.Sprite):
             if self.rect.bottom >= self.sh:
                 self.rect.bottom = self.sh
 
-        if (stageNumber == 5):
-            self.flowerCollide(stage.flowers)
+        
 
     def flowerCollide(self,flowers):
         for flower in flowers:

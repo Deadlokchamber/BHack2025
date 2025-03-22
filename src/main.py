@@ -20,7 +20,7 @@ def sysQuit():
 pygame.init()
 
 # Define constants for the screen width and height
-SCREEN_WIDTH = 1200
+SCREEN_WIDTH = 1216
 SCREEN_HEIGHT = 800
 
 # Create the screen object

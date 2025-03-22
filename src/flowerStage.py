@@ -1,7 +1,7 @@
 import random
 
-from src.homeStage import stageSprite
-from src.block import *
+from homeStage import stageSprite
+from block import *
 
 stageSprite = pygame.image.load_extended("../Images/Stages/flowerStage.png")
 
@@ -75,8 +75,11 @@ class flowerStage:
         self.draw(win)
 
 
-    def draw(self, win):
-        win.blit(stageSprite,(0,0))
+    def draw(self, win,bgImage):
+        if bgImage:
+            win.blit(stageSprite,(0,0))
+        else:
+            win.fill("Green")
         if (self.mazeTimer > 0):
             for flower in self.flowers:
                 flower.drawAnyway(win)

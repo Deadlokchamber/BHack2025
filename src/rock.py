@@ -26,8 +26,11 @@ class rockStage():
         self.bg = image.load('../Images/rockStage/rockStage.png')
         
         
-    def draw(self,window,player):
-        window.blit(self.bg,(0,0))
+    def draw(self,window,player,bgImage):
+        if bgImage:
+            window.blit(self.bg,(0,0))
+        else:
+            window.fill("blue")
 
 
         index=max(min(5,self.timeRemaining//10),0)

@@ -1,30 +1,82 @@
-import pygame
-from src.yapper import yapper
+from Slayer import Player
+from yapper import yapper
+from pygame.locals import (
+
+    K_ESCAPE,
+    KEYDOWN,
+    QUIT,
+)
+# Define a Player object by extending pygame.sprite.Sprite
+# The surface drawn on the screen is now an attribute of 'player'
+
+
+
+def sysQuit():
+    pygame.quit()
+    raise SystemExit
+
+
 pygame.init()
 
-screen = pygame.display.set_mode((1280,720))
+# Define constants for the screen width and height
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+
+# Create the screen object
+# The size is determined by the constant SCREEN_WIDTH and SCREEN_HEIGHT
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+
+all_sprites = pygame.sprite.Group()
+
+player = Player()
+all_sprites.add(player)
 
 clock = pygame.time.Clock()
 
+# Variable to keep the main loop running
+running = True
 neuphonicGameMode=False
-announcer =yapper()
+#announcer =speakOrSomething()
 #announcer.yap("Welcome to the game")
-while True:
-    
-    # Process player inputs.
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            raise SystemExit
+# Main loop
+while running:
 
-    # Do logical updates here.
-    # ...
+    for event in pygame.event.get():
+        # Check for KEYDOWN event
+        if event.type == KEYDOWN:
+            # If the Esc key is pressed, then exit the main loop
+            if event.key == K_ESCAPE:
+                print("Yeet")
+                running = False
+        # Check for QUIT event. If QUIT, then set running to false.
+        elif event.type == QUIT:
+            print("Yeetis")
+            running = False
+    # Get the set of keys pressed and check for user input
+    pressed_keys = pygame.key.get_pressed()
+
+
+    all_sprites.update(pressed_keys)
+
+    # Fill the screen with black
+
     if not neuphonicGameMode:
         screen.fill("purple")  # Fill the display with a solid color
     if neuphonicGameMode:
         screen.fill("red")
+<<<<<<< HEAD
     # Render the graphics here.
     # ...
 
     pygame.display.flip()  # Refresh on-screen display
     clock.tick(60)         # wait until next frame (at 60 FPS)
+=======
+
+    # Draw the player on the screen
+    all_sprites.draw(screen)
+    # Update the display
+    pygame.display.flip()  # Refresh on-screen display
+    clock.tick(60)
+
+win = pygame.display.set_mode((1920,960))
+>>>>>>> 44639507b81e744bd4f342a0b748aaa964993779

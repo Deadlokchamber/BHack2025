@@ -13,7 +13,8 @@ class Wood(pg.sprite.Sprite):
         pg.sprite.Sprite.__init__(self, self.groups)
         self.game = game
         self.image = pg.Surface((TILESIZE, TILESIZE))
-        self.image.fill(YELLOW)
+        self.image = pg.image.load('../Images/log.png')
+        self.image = pg.transform.scale(self.image, (70, 70))
         self.rect = self.image.get_rect()
         self.x = x
         self.y = y
@@ -111,10 +112,10 @@ class Player(Player):
 
 class Mob(pg.sprite.Sprite):
     def __init__(self, game, x, y):
-        self.image_up = pg.image.load('../Images/Clunk/clunk-forward.png')
-        self.image_down = pg.image.load('../Images/Clunk/clunk-backward.png')
-        self.image_left = pg.image.load('../Images/Clunk/clunk-left.png')
-        self.image_right = pg.image.load('../Images/Clunk/clunk-right.png')
+        self.image_up = pg.image.load('../Images/Ent/up.png')
+        self.image_down = pg.image.load('../Images/Ent/down.png')
+        self.image_left = pg.image.load('../Images/Ent/left.png')
+        self.image_right = pg.image.load('../Images/Ent/right.png')
         self.groups = game.all_sprites
         pg.sprite.Sprite.__init__(self, self.groups)
         self.game = game
@@ -131,6 +132,7 @@ class Mob(pg.sprite.Sprite):
         if not self.collide_with_walls(dx, dy):
             self.x += dx
             self.y += dy
+            self.changeDir()
         else:
             self.randMove()
     def collide_with_walls(self, dx=0, dy=0):
@@ -143,18 +145,30 @@ class Mob(pg.sprite.Sprite):
         self.rect.y = self.y * TILESIZE
     
     def randMove(self):
-        dir = randint(0,3)
-        if dir == 0:
-            
+        self.dir = randint(0,3)
+        if self.dir == 0:
             self.move(1, 0)
-        elif dir == 1:
+        elif self.dir == 1:
             self.move(-1, 0)
 
-        elif dir == 2:
+        elif self.dir == 2:
             self.move(0, -1)
 
-        elif dir == 3:
+        elif self.dir == 3:
             self.move(0, 1)
+
+    
+    def changeDir(self):
+        if self.dir == 0:
+            self.image = self.image_right
+        elif self.dir == 1:
+            self.image = self.image_left
+
+        elif self.dir == 2:
+            self.image = self.image_up
+
+        elif self.dir == 3:
+            self.image = self.image_down
 
         self.image = pg.transform.scale(self.image, (70, 70))
 

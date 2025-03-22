@@ -43,8 +43,8 @@ neuphonicGameMode=False
 #announcer =speakOrSomething()
 #announcer.yap("Welcome to the game")
 # Main loop
-stage = homeStage(1)
-currentStage = 0
+stage = flowerStage()
+currentStage = 5
 
 while running:
 
@@ -73,7 +73,8 @@ while running:
     #     screen.fill("red")
 
     # Draw the player on the screen
-    stage.draw(screen,images)
+    stage.update(player, screen, images)
+
     all_sprites.draw(screen)
 
     # Update the display

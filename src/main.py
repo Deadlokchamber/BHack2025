@@ -46,6 +46,7 @@ neuphonicGameMode=False
 # Main loop
 
 
+
 gs=gameState([homeStage(0),rockStage(),rockStage(),flowerStage(),rockStage()])
 while running:
 
@@ -74,7 +75,7 @@ while running:
     #     screen.fill("red")
 
     # Draw the player on the screen
-    # stage.draw(screen,images)
+
     all_sprites.draw(screen)
 
     # Update the display

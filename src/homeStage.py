@@ -1,6 +1,6 @@
 import pygame.image
 
-from src.block import fence, loadZone
+from block import fence, loadZone
 
 stageSprite = pygame.image.load_extended("../Images/Stages/HomeStage.png")
 houseSprites = [pygame.image.load("../Images/House/House0.png"),pygame.image.load("../Images/House/House1.png")]
@@ -26,8 +26,11 @@ class homeStage:
 
 
 
-    def draw(self, win):
-        win.blit(stageSprite,(0,0))
+    def draw(self, win,bgImage):
+        if bgImage:
+            win.blit(stageSprite,(0,0))
+        else:
+            win.fill("green")
         win.blit(houseSprites[self.houseCount], (340,280))
         for frame in self.fences:
             frame.draw(win)

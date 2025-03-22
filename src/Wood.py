@@ -11,6 +11,7 @@ class Game:
         pg.display.set_caption(TITLE)
         self.clock = pg.time.Clock()
         self.load_data()
+        self.mobs =[]
 
         
     def load_data(self):
@@ -26,6 +27,8 @@ class Game:
                     Wall(self, col, row)
                 if tile == 'P':
                     self.player = Player(self, col, row)
+                if tile == 'M':
+                    self.mobs.append(Mob(self, col, row))
         self.camera = Camera(self.map.width, self.map.height)
 
     def run(self):
@@ -78,6 +81,12 @@ class Game:
                     if event.key == pg.K_DOWN:
                         self.player.move(dy=1)
                         self.player.changeDirection(0)
+                    if event.key == pg.K_SPACE:
+                        self.player.hit()
+                    
+                    for mob in range(len(self.mobs)):
+                        self.mobs[mob].randMove()
+                    
 
     def show_start_screen(self):
         pass

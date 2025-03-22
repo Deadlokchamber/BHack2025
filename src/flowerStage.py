@@ -4,10 +4,11 @@ from homeStage import stageSprite
 from block import *
 
 stageSprite = pygame.image.load_extended("../Images/Stages/flowerStage.png")
-
-
+flowerbedSprite = pygame.image.load_extended("../Images/flowerPile.png")
 class flowerStage:
     def __init__(self):
+        self.flowerbedRect = pygame.Rect(600,700,128,64)
+        self.flowerBedCollect = False
         self.mazeTimer = 600
         self.squares = []
         self.patch = self.populatePatch()
@@ -66,13 +67,19 @@ class flowerStage:
                 pathed = True
         return patchBuild
 
-    def update(self, player,win):
-        if (self.mazeTimer>0):
+    def update(self, player,win,bgImage):
+        player.moveSpeed=3
+        if self.mazeTimer>0:
             player.canMove=False
-            self.mazeTimer -= 1;
+            self.mazeTimer -= 1
         else:
             player.canMove=True
-        self.draw(win)
+
+        if not self.flowerBedCollect:
+            if self.flowerbedRect.colliderect(player.rect):
+                self.flowerBedCollect = True
+
+        self.draw(win,bgImage)
 
 
     def draw(self, win,bgImage):
@@ -80,7 +87,7 @@ class flowerStage:
             win.blit(stageSprite,(0,0))
         else:
             win.fill("Green")
-        if (self.mazeTimer > 0):
+        if self.mazeTimer > 0:
             for flower in self.flowers:
                 flower.drawAnyway(win)
         else:
@@ -88,6 +95,9 @@ class flowerStage:
                 flower.draw(win)
         for frame in self.squares:
             frame.draw(win)
+
+        if not self.flowerBedCollect:
+            win.blit(flowerbedSprite,self.flowerbedRect)
 
 
 

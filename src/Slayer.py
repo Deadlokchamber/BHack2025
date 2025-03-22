@@ -20,6 +20,7 @@ class Player(pygame.sprite.Sprite):
         self.image = self.image_down
         self.sw = WIDTH
         self.sh = HEIGHT
+        self.moveSpeed = 5
 
         
 
@@ -33,16 +34,16 @@ class Player(pygame.sprite.Sprite):
     def update(self, pressed_keys, stage, stageNumber):
         if self.canMove:
             if pressed_keys[K_UP]:
-               self.rect.move_ip(0, -5)
+               self.rect.move_ip(0, -self.moveSpeed)
                self.image = self.image_down
             if pressed_keys[K_DOWN]:
-                self.rect.move_ip(0, 5)
+                self.rect.move_ip(0, self.moveSpeed)
                 self.image = self.image_up
             if pressed_keys[K_LEFT]:
-                self.rect.move_ip(-5, 0)
+                self.rect.move_ip(-self.moveSpeed, 0)
                 self.image = self.image_left
             if pressed_keys[K_RIGHT]:
-                self.rect.move_ip(5, 0)
+                self.rect.move_ip(self.moveSpeed, 0)
                 self.image = self.image_right
             # Keep player on the screen
             if self.rect.left < 0:

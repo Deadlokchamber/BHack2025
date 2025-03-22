@@ -12,6 +12,7 @@ class Player(pygame.sprite.Sprite):
     def __init__(self, sw, sh):
         super(Player, self).__init__()
         self.canMove = True
+        self.moveSpeed = 5
         self.image_up = pygame.image.load('../Images/Clunk/clunk-forward.png')
         self.image_down = pygame.image.load('../Images/Clunk/clunk-backward.png')
         self.image_left = pygame.image.load('../Images/Clunk/clunk-left.png')
@@ -31,16 +32,16 @@ class Player(pygame.sprite.Sprite):
     def update(self, pressed_keys, stage, stageNumber):
         if self.canMove:
             if pressed_keys[K_UP]:
-               self.rect.move_ip(0, -5)
+               self.rect.move_ip(0, -self.moveSpeed)
                self.image = self.image_down
             if pressed_keys[K_DOWN]:
-                self.rect.move_ip(0, 5)
+                self.rect.move_ip(0, self.moveSpeed)
                 self.image = self.image_up
             if pressed_keys[K_LEFT]:
-                self.rect.move_ip(-5, 0)
+                self.rect.move_ip(-self.moveSpeed, 0)
                 self.image = self.image_left
             if pressed_keys[K_RIGHT]:
-                self.rect.move_ip(5, 0)
+                self.rect.move_ip(self.moveSpeed, 0)
                 self.image = self.image_right
             # Keep player on the screen
             if self.rect.left < 0:

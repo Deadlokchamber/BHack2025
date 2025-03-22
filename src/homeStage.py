@@ -31,3 +31,7 @@ class homeStage:
         win.blit(houseSprites[self.houseCount], (340,280))
         for frame in self.fences:
             frame.draw(win)
+
+    def update(self,player,screen):
+        player.moveSpeed =5
+        self.draw(screen)

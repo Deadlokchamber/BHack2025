@@ -42,8 +42,8 @@ neuphonicGameMode=False
 #announcer =speakOrSomething()
 #announcer.yap("Welcome to the game")
 # Main loop
-stage = homeStage(1)
-currentStage = 0
+stage = flowerStage()
+currentStage = 5
 while running:
 
     for event in pygame.event.get():
@@ -71,7 +71,7 @@ while running:
         screen.fill("red")
 
     # Draw the player on the screen
-    stage.draw(screen)
+    stage.update(player,screen)
     all_sprites.draw(screen)
 
     # Update the display

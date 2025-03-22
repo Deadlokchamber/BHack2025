@@ -67,6 +67,7 @@ class flowerStage:
         return patchBuild
 
     def update(self, player,win):
+        player.moveSpeed=3
         if (self.mazeTimer>0):
             player.canMove=False
             self.mazeTimer -= 1;

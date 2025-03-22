@@ -1,6 +1,8 @@
 import random
 from pygame import *
 import math
+from block import *
+from gameState import gameState
 
 class rockStage():
     def __init__(self):
@@ -15,7 +17,7 @@ class rockStage():
         self.textColour=(0,0,0)
         self.hpString="Lives: "
         self.timeString="Time remaining: "
-        self.timeRemaining=66
+        self.timeRemaining=10
         self.lives=10
         self.invincibilityFrames=60
         self.gracePeriod=6
@@ -24,30 +26,45 @@ class rockStage():
         self.rockImage=image.load('../Images/rockStage/rock.png')
         self.rockLump=image.load('../Images/rockStage/rockLump.png')
         self.bg = image.load('../Images/rockStage/rockStage.png')
+        self.collectedRock=False
         
+        self.loadZones=[loadZone(1196,0,0,596,384,20,800)]
         
-    def draw(self,window,player,bgImage):
+    def update(self,window,player,bgImage):
+        playerRect=player.rect
         if bgImage:
             window.blit(self.bg,(0,0))
         else:
             window.fill("blue")
 
 
-        index=max(min(5,self.timeRemaining//10),0)
-        golemImage=self.golemStates[5-index]
-        golemRect=golemImage.get_rect()
-        golemRect.topleft = (400,200)
-        window.blit(golemImage,golemRect)
-
-        playerRect=player.rect
-        if self.frames%120==0 and self.frames>=60*self.gracePeriod:
+        index=min(5,self.timeRemaining//10)
+        if index>=0:
+            golemImage=self.golemStates[5-index]
+            golemRect=golemImage.get_rect()
+            golemRect.topleft = (400,200)
+            window.blit(golemImage,golemRect)
+        if self.timeRemaining<0 and (not self.collectedRock):
+            lumpRect=self.rockLump.get_rect()
+            lumpRect.topleft = (400,200)    
+            window.blit(self.rockLump,lumpRect)
+            lumpCollisionRect=(492,342,200,100)
+            if playerRect.colliderect(lumpCollisionRect):
+                self.collectedRock=True
+        if self.collectedRock:
+            for load in self.loadZones:
+                if load.check(player):
+                    gameState.state=load.destination
+                    return
+        
+        if self.frames%120==0 and self.frames>=60*self.gracePeriod and self.timeRemaining>=0:
             self.generateRocks(window)
         if self.frames%60==0:
             self.timeRemaining-=1
-            if(self.timeRemaining==0):
-                return 1
-        
-        for rock in self.rocks:
+            if(self.timeRemaining==-1):
+                self.rocks=[]
+                player.rect.center=(40,400)
+        for rock in self.rocks[:]:
             rockRect=Rect(rock[0],rock[1],32,32)
             rockCollisionRect=Rect(rock[1]+2,rock[0]+2,28,28)
             rockRect=self.rockImage.get_rect()
@@ -58,6 +75,8 @@ class rockStage():
                 if self.lives<=0:
                     return 2
                 self.lastCollision=self.frames
+                self.rocks.remove(rock)
+            
             rock[1]+=rock[3]*self.speed
             rock[0]+=rock[2]*self.speed
         self.frames+=1
@@ -68,9 +87,10 @@ class rockStage():
         livesTextRect=livesTextSurface.get_rect(center=(1150,20))
         window.blit(livesTextSurface,livesTextRect)
 
-        timeTextSurface=self.font.render(self.timeString+str(self.timeRemaining),True,self.textColour)
-        timeTextRect=timeTextSurface.get_rect(center=(140,20))
-        window.blit(timeTextSurface,timeTextRect)
+        if self.timeRemaining>=0:
+            timeTextSurface=self.font.render(self.timeString+str(self.timeRemaining),True,self.textColour)
+            timeTextRect=timeTextSurface.get_rect(center=(140,20))
+            window.blit(timeTextSurface,timeTextRect)
 
         
         return 0

@@ -3,7 +3,7 @@ from pygame import *
 import math
 from block import *
 from gameState import gameState
-
+from yapper import yapper
 class rockStage():
     def __init__(self):
         self.rockWavePresent=False
@@ -17,7 +17,7 @@ class rockStage():
         self.textColour=(0,0,0)
         self.hpString="Lives: "
         self.timeString="Time remaining: "
-        self.timeRemaining=10
+        self.timeRemaining=66
         self.lives=10
         self.invincibilityFrames=60
         self.gracePeriod=6
@@ -31,6 +31,7 @@ class rockStage():
         self.loadZones=[loadZone(1196,0,0,596,384,20,800)]
         
     def update(self,window,player,bgImage):
+        
         playerRect=player.rect
         if bgImage:
             window.blit(self.bg,(0,0))
@@ -55,7 +56,7 @@ class rockStage():
             for load in self.loadZones:
                 if load.check(player):
                     gameState.state=load.destination
-                    return
+                    return "Win"
         
         if self.frames%120==0 and self.frames>=60*self.gracePeriod and self.timeRemaining>=0:
             self.generateRocks(window)
@@ -73,13 +74,15 @@ class rockStage():
             if playerRect.colliderect(rockCollisionRect) and self.frames>self.lastCollision+self.invincibilityFrames:
                 self.lives-=1
                 if self.lives<=0:
-                    return 2
+                    gameState.state=0
+                    player.rect.center=(0,384)
+                    return "Lose"
                 self.lastCollision=self.frames
                 self.rocks.remove(rock)
             
             rock[1]+=rock[3]*self.speed
             rock[0]+=rock[2]*self.speed
-        self.frames+=1
+        
 
         
 
@@ -92,7 +95,11 @@ class rockStage():
             timeTextRect=timeTextSurface.get_rect(center=(140,20))
             window.blit(timeTextSurface,timeTextRect)
 
+        if self.frames==1:
+            dwayne=yapper()
+            dwayne.startYapThread("I am Dwayne the rock johnson... Tremble before me and behold my immense power!!! Mwaahahahahahahahaahahahhahahahahhahahahhaha")
         
+        self.frames+=1
         return 0
     def generateRocks(self,window):
         # notPresent=random.randint(0,24)

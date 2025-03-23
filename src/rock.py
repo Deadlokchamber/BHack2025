@@ -80,6 +80,7 @@ class rockStage():
                     gameState.state=0
                     player.rect.center=(100,384)
                     self.reset()
+
                     return "Lose"
                 self.lastCollision=self.frames
                 self.rocks.remove(rock)

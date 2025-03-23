@@ -27,7 +27,7 @@ class Player(Player):
         self.image_down = pg.image.load('../Images/Clunk/clunk-backward.png')
         self.image_left = pg.image.load('../Images/Clunk/clunk-left.png')
         self.image_right = pg.image.load('../Images/Clunk/clunk-right.png')
-        self.groups = game.all_sprites, game.walls
+        self.groups = game.all_sprites
         pg.sprite.Sprite.__init__(self, self.groups)
         self.game = game
         self.image = self.image_up
@@ -108,6 +108,9 @@ class Player(Player):
         for wall in self.game.walls:
             if wall.x == self.x + dx and wall.y == self.y + dy:
                 return True
+        for mob in self.game.mobs:
+            if mob.x == self.x + dx and mob.y == self.y + dy:
+                return True
         return False
 
     def update(self):
@@ -120,7 +123,7 @@ class Mob(pg.sprite.Sprite):
         self.image_down = pg.image.load('../Images/Ent/down.png')
         self.image_left = pg.image.load('../Images/Ent/left.png')
         self.image_right = pg.image.load('../Images/Ent/right.png')
-        self.groups = game.all_sprites, game.walls
+        self.groups = game.all_sprites
         pg.sprite.Sprite.__init__(self, self.groups)
         self.game = game
         self.image = self.image_up
@@ -141,7 +144,7 @@ class Mob(pg.sprite.Sprite):
             self.randMove()
     def collide_with_walls(self, dx=0, dy=0):
         for wall in self.game.walls:
-            if wall.x == self.x + dx and wall.y == self.y + dy:
+            if (wall.x == self.x + dx and wall.y == self.y + dy) or (self.game.player.x == self.x+dx and self.game.player.y == self.y+dy):
                 return True
         return False
     def update(self):

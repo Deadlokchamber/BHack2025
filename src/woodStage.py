@@ -4,7 +4,7 @@ from os import path
 from sprites import *
 from tilemap import *
 
-class Game:
+class WoodStage:
     def __init__(self):
         pg.init()
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))
@@ -102,7 +102,7 @@ class Game:
         pass
 
 # create the game object
-g = Game()
+g = WoodStage()
 g.show_start_screen()
 while True:
     g.new()

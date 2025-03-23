@@ -1,6 +1,7 @@
 import pygame
 from Slayer import Player
 from flowerStage import flowerStage
+from woodStage import WoodStage
 from homeStage import homeStage
 from gameState import gameState
 from yapper import yapper
@@ -9,6 +10,12 @@ from fireStage import fireStage
 from menu import menu
 from sheepStage import *
 from pygame.locals import (
+
+    K_UP,
+    K_DOWN,
+    K_LEFT,
+    K_RIGHT,
+    K_SPACE,
     K_ESCAPE,
     KEYDOWN,
     QUIT,
@@ -49,7 +56,8 @@ game = False
 # Main loop
 
 
-gs=gameState([homeStage(0),rockStage(),rockStage(),fireStage(),flowerStage(),sheepStage()])
+
+gs=gameState([homeStage(0),rockStage(),WoodStage(),fireStage(),flowerStage(),sheepStage()])
 
 while running:
 
@@ -57,6 +65,17 @@ while running:
         # Check for KEYDOWN event
         
         if event.type == KEYDOWN:
+            if gameState.state==2:
+                if event.key == K_LEFT:
+                    gs.states[2].left()
+                if event.key == K_RIGHT:
+                    gs.states[2].right()
+                if event.key == K_UP:
+                    gs.states[2].up()
+                if event.key == K_DOWN:
+                    gs.states[2].down()
+                if event.key == K_SPACE:
+                    gs.states[2].hit()
             # If the Esc key is pressed, then exit the main loop
             if event.key == K_ESCAPE:
                 running = False
@@ -72,12 +91,14 @@ while running:
 
 
     if game:
-        all_sprites.update(pressed_keys)
+
         gs.drawState(screen,player,images)
 
 
         # Draw the player on the screen
-        all_sprites.draw(screen)
+        if gameState.state!=2:
+            all_sprites.update(pressed_keys)
+            all_sprites.draw(screen)
     if menuRun:
         if pressed_keys[pygame.K_DOWN] or pressed_keys[pygame.K_UP]:
             menu.swapState()

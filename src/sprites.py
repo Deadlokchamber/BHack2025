@@ -27,7 +27,7 @@ class Player(Player):
         self.image_down = pg.image.load('../Images/Clunk/clunk-backward.png')
         self.image_left = pg.image.load('../Images/Clunk/clunk-left.png')
         self.image_right = pg.image.load('../Images/Clunk/clunk-right.png')
-        self.groups = game.all_sprites
+        self.groups = game.all_sprites, game.walls
         pg.sprite.Sprite.__init__(self, self.groups)
         self.game = game
         self.image = self.image_up
@@ -37,6 +37,7 @@ class Player(Player):
         self.groups = game.all_sprites
         self.dir = 0
         pg.sprite.Sprite.__init__(self, self.groups)
+        
 
         self.x = x
         self.y = y
@@ -53,6 +54,9 @@ class Player(Player):
         elif self.dir == 3:
             target_x = self.x + 1  
             target_y = self.y
+        if target_x == self.game.goal.x and target_y == self.game.goal.y:
+            self.game.goal.kill()
+            self.game.wood = True
 
         for mob in self.game.mobs:
             if mob.x == target_x and mob.y == target_y:
@@ -116,7 +120,7 @@ class Mob(pg.sprite.Sprite):
         self.image_down = pg.image.load('../Images/Ent/down.png')
         self.image_left = pg.image.load('../Images/Ent/left.png')
         self.image_right = pg.image.load('../Images/Ent/right.png')
-        self.groups = game.all_sprites
+        self.groups = game.all_sprites, game.walls
         pg.sprite.Sprite.__init__(self, self.groups)
         self.game = game
         self.image = self.image_up
@@ -173,6 +177,19 @@ class Mob(pg.sprite.Sprite):
         self.image = pg.transform.scale(self.image, (70, 70))
 
      
+class Exit(pg.sprite.Sprite):
+    def __init__(self, game, x, y):
+        self.groups = game.all_sprites
+        pg.sprite.Sprite.__init__(self, self.groups)
+        self.game = game
+        self.image = pg.Surface((TILESIZE, TILESIZE))
+        self.image.fill(YELLOW)
+        self.image = pg.transform.scale(self.image, (70, 70))
+        self.rect = self.image.get_rect()
+        self.x = x
+        self.y = y
+        self.rect.x = x * TILESIZE
+        self.rect.y = y * TILESIZE
 
 class Wall(pg.sprite.Sprite):
     def __init__(self, game, x, y):

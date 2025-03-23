@@ -18,7 +18,7 @@ class rockStage():
         self.hpString="Lives: "
         self.timeString="Time remaining: "
         self.timeRemaining=66
-        self.lives=10
+        self.lives=3
         self.invincibilityFrames=60
         self.gracePeriod=6
         self.lastCollision=-(self.invincibilityFrames+1)

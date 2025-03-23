@@ -17,7 +17,7 @@ class rockStage():
         self.textColour=(0,0,0)
         self.hpString="Lives: "
         self.timeString="Time remaining: "
-        self.timeRemaining=66
+        self.timeRemaining=6
         self.lives=10
         self.invincibilityFrames=60
         self.gracePeriod=6
@@ -30,7 +30,7 @@ class rockStage():
         
         self.loadZones=[loadZone(1196,0,0,596,384,20,800)]
         
-    def update(self,window,player,bgImage):
+    def update(self,window,player,currentGameState,bgImage):
         
         playerRect=player.rect
         if bgImage:
@@ -52,6 +52,8 @@ class rockStage():
             lumpCollisionRect=(492,342,200,100)
             if playerRect.colliderect(lumpCollisionRect):
                 self.collectedRock=True
+                currentGameState.states[0].houseCount += 1
+
         if self.collectedRock:
             for load in self.loadZones:
                 if load.check(player):

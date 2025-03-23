@@ -26,7 +26,7 @@ class fireStage():
         self.playerPosSet=False
         self.fireImage=pygame.image.load('../Images/fire.png')
         
-    def update(self,window,player,bgImage):
+    def update(self,window,player,currentGameState,bgImage):
         window.fill("black")
         if not self.finished:
             pygame.draw.circle(window,"red",(window.get_width()/2-4,window.get_height()/2-4),8)
@@ -44,12 +44,13 @@ class fireStage():
             playerRect=player.rect
             if playerRect.colliderect(fireCollisionRect):
                 self.collectedFire=True
-            
+
         if self.announcer.yapping:
             self.lastYapFrame=self.frames
         if self.announcer.yapping==False and self.collectedFire:
             player.rect.center=(window.get_width()/2,window.get_height()/2)
             gameState.state=0
+            currentGameState.states[0].houseCount += 1
             return "Win"
         self.previousYapState=self.announcer.yapping
         if self.frames==0:

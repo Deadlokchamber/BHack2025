@@ -49,7 +49,7 @@ class WoodStage:
         pg.quit()
         sys.exit()
 
-    def update(self,window,player,bgImage):
+    def update(self,window,player,currentGameState,bgImage):
         
            
         self.draw(window)
@@ -59,6 +59,7 @@ class WoodStage:
         if self.wood and self.player.x == self.leave.x and self.player.y == self.leave.y:
             player.rect.center=(608,400)
             gameState.state = 0
+            currentGameState.states[0].houseCount += 1
             return "Wood gotem"
 
 

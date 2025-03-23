@@ -69,7 +69,7 @@ class flowerStage:
                 pathed = True
         return patchBuild
 
-    def update(self, win,player,bgImage):
+    def update(self, win,player,currentGameState,bgImage):
         player.moveSpeed=3
         for zone in self.loadZones:
             if zone.check(player):
@@ -84,6 +84,8 @@ class flowerStage:
         if not self.flowerBedCollect:
             if self.flowerbedRect.colliderect(player.rect):
                 self.flowerBedCollect = True
+                currentGameState.states[0].houseCount += 1
+
 
         self.draw(win,bgImage)
 

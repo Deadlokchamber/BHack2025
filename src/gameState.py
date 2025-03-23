@@ -9,4 +9,4 @@ class gameState:
     
     
     def drawState(self,window,player,bgImage):
-        self.states[gameState.state].update(window,player,bgImage)
+        self.states[gameState.state].update(window,player,self,bgImage)

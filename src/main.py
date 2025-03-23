@@ -7,6 +7,7 @@ from yapper import yapper
 from rock import rockStage
 from fireStage import fireStage
 from menu import menu
+from sheepStage import *
 from pygame.locals import (
     K_ESCAPE,
     KEYDOWN,
@@ -45,8 +46,10 @@ neuphonicGameMode=False
 menuRun = True
 game = False
 
+# Main loop
 
-gs=gameState([homeStage(0),rockStage(),rockStage(),fireStage(),flowerStage(),rockStage()])
+
+gs=gameState([homeStage(0),rockStage(),rockStage(),fireStage(),flowerStage(),sheepStage()])
 
 while running:
 

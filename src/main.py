@@ -90,7 +90,6 @@ while running:
         menu.update(screen,images)
 
 
-    all_sprites.draw(screen)
 
 
     # Update the display

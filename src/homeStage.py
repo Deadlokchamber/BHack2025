@@ -15,27 +15,31 @@ class homeStage:
         self.loadZones = []
         self.witchCutscene = False
         self.witchCutsceneTimer = 300
-        self.storyCount = 0
+        self.storyCount = 4
         self.houseCount = houseCount
         self.fences = [fence(0, 336,0), fence(32,336,1), fence(0, 432, 0), fence(32,432, 1),
                        fence(1184,336,0), fence(1152,336,2),fence(1184, 432, 0), fence(1152,432, 2),
                        fence(544,0,3),fence(544,32,5),fence(640,0,3),fence(640,32,5),
                        fence(544, 768, 3), fence(544, 736, 4), fence(640, 768, 3), fence(640, 736, 4),
                        ]
-        if houseCount ==0:
+
+
+
+    def update(self,win,player,currentGameState,bgImage):
+        if self.houseCount ==0:
             self.loadZones = [loadZone(0,368, 1, 768, 384),loadZone(0,400, 1, 768, 384) ]
-        elif houseCount ==2:
+        elif self.houseCount ==1:
+            self.loadZones = [loadZone(576,0, 2, 768, 384),loadZone(608,0, 2, 768, 384) ]
+        elif self.houseCount ==2:
             self.loadZones = [loadZone(768,368, 3, 0, 384),loadZone(768,400, 3, 0, 384)]
-        elif houseCount ==3:
-            self.loadZones = [loadZone(576,768, 3, 592, 48),loadZone(608,768, 4, 592, 48)]
-
-
-
-
-    def update(self,win,player,bgImage):
+        elif self.houseCount ==3:
+            self.loadZones = [loadZone(576,768, 4, 592, 80),loadZone(608,768, 4, 592, 80)]
+        if self.houseCount==5:
+            self.loadZones = []
         for zone in self.loadZones:
             if zone.check(player):
                 gameState.state=zone.destination
+                self.loadZones = []
                 return
         if self.storyCount == self.houseCount:
 
@@ -75,7 +79,7 @@ class homeStage:
         if self.houseCount == 5:
             win.blit(houseSprites[4], (340, 180))
             win.blit(sheepSprite, (800, 20))
-        if self.houseCount == 4:
+        elif self.houseCount == 4:
             if self.witchCutscene == True:
                 win.blit(houseSprites[4], (340, 180))
                 win.blit(witchSprite, (300, 100))

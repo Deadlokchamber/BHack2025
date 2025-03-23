@@ -2,7 +2,7 @@ import pygame
 import random
 from gameState import gameState
 
-from src.block import loadZone
+from block import loadZone
 from yapper import *
 witchSprite = pygame.image.load("../Images/witch/witch.png")
 sheepSprite =pygame.image.load("../Images/House/Sheep.png")
@@ -61,7 +61,7 @@ class sheepStage:
                            self.font.render("2. " + self.currentOptions[1], True,self.textColour),
                            self.font.render("3. " + self.currentOptions[2], True,self.textColour)]
 
-    def update(self,win,player,bgImage):
+    def update(self,win,player,currentGameState,bgImage):
         for zone in self.loadZones:
             if zone.check(player):
                 gameState.state=zone.destination
@@ -86,6 +86,9 @@ class sheepStage:
                 if self.currentAnswer == 1:
                     self.audio.startYapThread("You Dare, well try this one then")
                     self.questionsAnswered += 1
+                    if self.questionsAnswered >= 3:
+                        self.endGame(currentGameState)
+                        player.canMove = True
                 else:
                     self.audio.startYapThread("Ha, cocky fool")
                 self.reloadQuestions()
@@ -93,6 +96,9 @@ class sheepStage:
                 if self.currentAnswer == 2:
                     self.audio.startYapThread("We have a smarty pants it seems, how about this then")
                     self.questionsAnswered += 1
+                    if self.questionsAnswered >= 3:
+                        self.endGame(currentGameState)
+                        player.canMove = True
                 else:
                     self.audio.startYapThread("Someone clearly overestimated themself")
                 self.reloadQuestions()
@@ -100,12 +106,13 @@ class sheepStage:
                 if self.currentAnswer == 3:
                     self.audio.startYapThread("Nerd")
                     self.questionsAnswered += 1
+                    if self.questionsAnswered >= 3:
+                        self.endGame(currentGameState)
+                        player.canMove = True
                 else:
                     self.audio.startYapThread("Nuh uh")
                 self.reloadQuestions()
-        if self.questionsAnswered >= 3:
-            self.endGame()
-            player.canMove = True
+
 
 
 
@@ -130,12 +137,11 @@ class sheepStage:
             self.optionsPic = [self.font.render("1. " + self.currentOptions[0], True, self.textColour),
                            self.font.render("2. " + self.currentOptions[1], True, self.textColour),
                            self.font.render("3. " + self.currentOptions[2], True, self.textColour)]
-        print(self.questionsAnswered)
-        print(self.askedQuestions)
 
 
-    def endGame(self):
+    def endGame(self,currentGameState):
         self.gameOn = False
+        currentGameState.states[0].houseCount += 1
         self.loadZones.append(loadZone(950,650,0,150,150,156,156))
 
 

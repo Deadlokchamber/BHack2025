@@ -73,7 +73,7 @@ class Player(Player):
                     self.kill()
                     
 
-                    self.game.map = Map("map1.txt")  # Swap maps when enemies are dead
+                    self.game.map = Map("map{}.txt".format(self.game.mapno*2-1))
                     self.game.new() 
                     
                     self.player = Player(self.game, current_player_x, current_player_y)  # Respawn player at the same position

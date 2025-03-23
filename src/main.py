@@ -6,6 +6,7 @@ from gameState import gameState
 from yapper import yapper
 from rock import rockStage
 from menu import menu
+from sheepStage import *
 from pygame.locals import (
 
     K_ESCAPE,
@@ -49,7 +50,7 @@ menuRun = True
 game = False
 
 # Main loop
-gs=gameState([homeStage(0),rockStage(),rockStage(),flowerStage(),rockStage()])
+gs=gameState([homeStage(0),rockStage(),rockStage(),flowerStage(),sheepStage()])
 while running:
 
     for event in pygame.event.get():

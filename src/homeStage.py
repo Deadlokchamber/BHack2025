@@ -15,7 +15,7 @@ class homeStage:
         self.loadZones = []
         self.witchCutscene = False
         self.witchCutsceneTimer = 300
-        self.storyCount = 4
+        self.storyCount = 0
         self.houseCount = houseCount
         self.fences = [fence(0, 336,0), fence(32,336,1), fence(0, 432, 0), fence(32,432, 1),
                        fence(1184,336,0), fence(1152,336,2),fence(1184, 432, 0), fence(1152,432, 2),

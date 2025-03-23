@@ -57,7 +57,7 @@ game = False
 
 
 
-gs=gameState([homeStage(4),rockStage(),WoodStage(),fireStage(),flowerStage(),sheepStage()])
+gs=gameState([homeStage(0),rockStage(),WoodStage(),fireStage(),flowerStage(),sheepStage()])
 
 while running:
     for event in pygame.event.get():

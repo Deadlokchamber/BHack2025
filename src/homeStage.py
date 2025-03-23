@@ -31,7 +31,7 @@ class homeStage:
         elif self.houseCount ==1:
             self.loadZones = [loadZone(576,0, 2, 768, 384),loadZone(608,0, 2, 768, 384) ]
         elif self.houseCount ==2:
-            self.loadZones = [loadZone(768,368, 3, 0, 384),loadZone(768,400, 3, 0, 384)]
+            self.loadZones = [loadZone(1184,368, 3, 0, 384),loadZone(1184,400, 3, 0, 384)]
         elif self.houseCount ==3:
             self.loadZones = [loadZone(576,768, 4, 592, 80),loadZone(608,768, 4, 592, 80)]
         if self.houseCount==5:
@@ -92,8 +92,6 @@ class homeStage:
             win.blit(houseSprites[self.houseCount], (340, 280))
         for frame in self.fences:
             frame.draw(win)
-        for zone in self.loadZones:
-            pygame.draw.rect(win,"red",zone.hitbox)
         if self.houseCount <4:
             win.blit(witchSprite,(300,100))
 

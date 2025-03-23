@@ -37,6 +37,7 @@ class Player(Player):
         self.groups = game.all_sprites
         self.dir = 0
         pg.sprite.Sprite.__init__(self, self.groups)
+        
 
         self.x = x
         self.y = y
@@ -53,6 +54,9 @@ class Player(Player):
         elif self.dir == 3:
             target_x = self.x + 1  
             target_y = self.y
+        if target_x == self.game.goal.x and target_y == self.game.goal.y:
+            self.game.goal.kill()
+            self.game.wood = True
 
         for mob in self.game.mobs:
             if mob.x == target_x and mob.y == target_y:

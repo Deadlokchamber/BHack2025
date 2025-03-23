@@ -93,7 +93,7 @@ class WoodStage:
 
     def hit(self):
         self.player.hit()
-        self.moveMobs()
+    
 
 
                     

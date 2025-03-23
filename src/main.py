@@ -6,17 +6,14 @@ from gameState import gameState
 from yapper import yapper
 from rock import rockStage
 from fireStage import fireStage
+from menu import menu
 from pygame.locals import (
-
     K_ESCAPE,
     KEYDOWN,
     QUIT,
 )
 # Define a Player object by extending pygame.sprite.Sprite
 # The surface drawn on the screen is now an attribute of 'player'
-
-
-
 def sysQuit():
     pygame.quit()
     raise SystemExit
@@ -33,6 +30,7 @@ SCREEN_HEIGHT = 800
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 all_sprites = pygame.sprite.Group()
+menu = menu()
 
 player = Player(SCREEN_WIDTH, SCREEN_HEIGHT)
 all_sprites.add(player)
@@ -44,11 +42,12 @@ running = True
 neuphonicGameMode=False
 #announcer =speakOrSomething()
 #announcer.yap("Welcome to the game")
-# Main loop
-
+menuRun = True
+game = False
 
 
 gs=gameState([homeStage(0),rockStage(),rockStage(),fireStage(),flowerStage(),rockStage()])
+
 while running:
 
     for event in pygame.event.get():
@@ -57,37 +56,44 @@ while running:
         if event.type == KEYDOWN:
             # If the Esc key is pressed, then exit the main loop
             if event.key == K_ESCAPE:
-                print("Yeet")
                 running = False
         elif event.type ==pygame.MOUSEBUTTONDOWN and gameState.state==3:
             gs.states[3].mouseDown(pygame.mouse.get_pos(),screen)
         # Check for QUIT event. If QUIT, then set running to false.
         elif event.type == QUIT:
-            print("Yeetos")
             running = False
     # Get the set of keys pressed and check for user input
     pressed_keys = pygame.key.get_pressed()
 
 
-    all_sprites.update(pressed_keys)
 
-    # Fill the screen with black
-    gs.drawState(screen,player,images)
-    print("WE BACK")
-    # if not neuphonicGameMode:
-    #     screen.fill("purple")  # Fill the display with a solid color
-    # if neuphonicGameMode:
-    #     screen.fill("red")
 
-    # Draw the player on the screen
+    if game:
+        all_sprites.update(pressed_keys)
+        gs.drawState(screen,player,images)
+
+
+        # Draw the player on the screen
+        all_sprites.draw(screen)
+    if menuRun:
+        if pressed_keys[pygame.K_DOWN] or pressed_keys[pygame.K_UP]:
+            menu.swapState()
+        if pressed_keys[pygame.K_RETURN]:
+            if menu.currentState == 0:
+                menuRun = False
+                game = True
+            else:
+                running = False
+        menu.update(screen,images)
+
 
     all_sprites.draw(screen)
-    print("B2")
+
 
     # Update the display
     pygame.display.flip()  # Refresh on-screen display
-    print("B3")
+
     clock.tick(60)
-    print("b4")
+
 
 win = pygame.display.set_mode((1920,960))

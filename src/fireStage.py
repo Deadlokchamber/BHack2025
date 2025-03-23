@@ -7,6 +7,8 @@ import pygame
 from gameState import gameState
 class fireStage():
     def  __init__(self):
+        self.reset()
+    def reset(self):
         self.announcer=yapper()
         self.frames=0
         self.delay=1
@@ -25,8 +27,11 @@ class fireStage():
         self.collectedFire=False
         self.playerPosSet=False
         self.fireImage=pygame.image.load('../Images/fire.png')
-        
     def update(self,window,player,currentGameState,bgImage):
+        screen_width, screen_height = pygame.display.Info().current_w, pygame.display.Info().current_h
+        if self.frames==0:
+            window = pygame.display.set_mode((screen_width, screen_height), pygame.FULLSCREEN)
+
         window.fill("black")
         if not self.finished:
             pygame.draw.circle(window,"red",(window.get_width()/2-4,window.get_height()/2-4),8)
@@ -51,6 +56,7 @@ class fireStage():
             player.rect.center=(window.get_width()/2,window.get_height()/2)
             gameState.state=0
             currentGameState.states[0].houseCount += 1
+            pygame.display.set_mode((1216,800))
             return "Win"
         self.previousYapState=self.announcer.yapping
         if self.frames==0:
@@ -117,6 +123,8 @@ class fireStage():
             if self.attempts==self.maxAttempts:
                 self.announcer.startYapThread("You lose")
                 gameState.state=0
+                self.reset()
+                pygame.display.set_mode((1216, 800))
                 return "Lose"
             
             self.announcer.startYapThread("You missed the target...The target has a bearing of... "+str(bearingTarget)+"... and a distance of... "+str(distTarget)+"... Youre shot had a bearing of... "+str(bearingShot)+"... and a distance of... "+str(distShot)) 

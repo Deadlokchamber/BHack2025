@@ -17,7 +17,7 @@ class rockStage():
         self.textColour=(0,0,0)
         self.hpString="Lives: "
         self.timeString="Time remaining: "
-        self.timeRemaining=6
+        self.timeRemaining=66
         self.lives=10
         self.invincibilityFrames=60
         self.gracePeriod=6

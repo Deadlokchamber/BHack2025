@@ -77,7 +77,7 @@ class rockStage():
                 self.lives-=1
                 if self.lives<=0:
                     gameState.state=0
-                    player.rect.center=(0,384)
+                    player.rect.center=(100,384)
                     return "Lose"
                 self.lastCollision=self.frames
                 self.rocks.remove(rock)

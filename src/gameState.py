@@ -1,6 +1,6 @@
 
 class gameState:
-    state=0
+    state=2
     
     def __init__(self,stateList):
         self.states=stateList

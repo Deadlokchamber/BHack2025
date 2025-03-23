@@ -48,7 +48,7 @@ class sheepStage:
                        ["Three", "Five", "Seven"],
                        ["Big Soup", "Chicago", "Lichtenstein"]
                         ]
-        self.answers = [1,2,2,3,1,1,3,3,2]
+        self.answers = [1,3,2,3,1,2,3,3,2]
 
         self.currentNumber = random.randint(0,8)
         self.askedQuestions.append(self.currentNumber)

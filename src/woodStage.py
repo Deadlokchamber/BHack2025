@@ -1,3 +1,4 @@
+import random 
 import pygame as pg
 import sys
 from os import path
@@ -20,7 +21,8 @@ class WoodStage:
 
         
     def load_data(self):
-        self.map = Map('map3.txt')
+        self.mapno = random.randint(1, 6)
+        self.map = Map("map{}.txt".format(self.mapno*2))
         self.background = pg.image.load('../Images/treeback.png') 
         
 

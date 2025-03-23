@@ -62,7 +62,7 @@ class fireStage():
         if self.frames==0:
             
             self.announcer.startYapThread("Welcome to the fire challenge... Please place your mouse in the centre of the screen then close your eyes... A fire has caused smoke to block your vision... Your task is to hit"+str(self.totalTargets)+"targets with your eyes closed.. you will have" +str(self.maxAttempts)+ "attempts to hit each target and before each attempt you will be told the bearing and distance of the target from the centre of the screen as well as the bearing and distance of your last shot... Good luck!")
-        if self.lastAnnounced<self.targetNum and self.frames>self.lastYapFrame+self.delay*60:
+        if self.lastAnnounced<self.targetNum and self.frames>self.lastYapFrame+self.delay*60 and self.targetNum<=self.totalTargets:
             self.generateTarget(window)
             
             
@@ -109,7 +109,7 @@ class fireStage():
             self.attempts=0
             self.targetNum+=1
             if self.targetNum>self.totalTargets:
-                self.announcer.startYapThread("Congratulations on hitting all"+str(self.totalTargets)+"targets and claiming fire for your house. You can open you eyes now!")
+                self.announcer.startYapThread("Congratulations on hitting all"+str(self.totalTargets)+"targets and claiming fire for your house. You can open your eyes now!")
                 
                 self.finished=True
             else:

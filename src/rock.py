@@ -6,6 +6,8 @@ from gameState import gameState
 from yapper import yapper
 class rockStage():
     def __init__(self):
+        self.reset()
+    def reset(self):
         self.rockWavePresent=False
         self.rockWaveCount=0
         self.rockWaveDirection=-1
@@ -29,7 +31,6 @@ class rockStage():
         self.collectedRock=False
         
         self.loadZones=[loadZone(1196,0,0,596,384,20,800)]
-        
     def update(self,window,player,currentGameState,bgImage):
         
         playerRect=player.rect
@@ -77,7 +78,8 @@ class rockStage():
                 self.lives-=1
                 if self.lives<=0:
                     gameState.state=0
-                    player.rect.center=(0,384)
+                    player.rect.center=(100,384)
+                    self.reset()
                     return "Lose"
                 self.lastCollision=self.frames
                 self.rocks.remove(rock)

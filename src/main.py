@@ -92,6 +92,8 @@ while running:
     if game:
 
         gs.drawState(screen,player,images)
+        
+
 
 
         # Draw the player on the screen

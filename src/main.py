@@ -5,18 +5,15 @@ from homeStage import homeStage
 from gameState import gameState
 from yapper import yapper
 from rock import rockStage
+from fireStage import fireStage
 from menu import menu
 from pygame.locals import (
-
     K_ESCAPE,
     KEYDOWN,
     QUIT,
 )
 # Define a Player object by extending pygame.sprite.Sprite
 # The surface drawn on the screen is now an attribute of 'player'
-
-
-
 def sysQuit():
     pygame.quit()
     raise SystemExit
@@ -48,16 +45,20 @@ neuphonicGameMode=False
 menuRun = True
 game = False
 
-# Main loop
-gs=gameState([homeStage(0),rockStage(),rockStage(),flowerStage(),rockStage()])
+
+gs=gameState([homeStage(0),rockStage(),rockStage(),fireStage(),flowerStage(),rockStage()])
+
 while running:
 
     for event in pygame.event.get():
         # Check for KEYDOWN event
+        
         if event.type == KEYDOWN:
             # If the Esc key is pressed, then exit the main loop
             if event.key == K_ESCAPE:
                 running = False
+        elif event.type ==pygame.MOUSEBUTTONDOWN and gameState.state==3:
+            gs.states[3].mouseDown(pygame.mouse.get_pos(),screen)
         # Check for QUIT event. If QUIT, then set running to false.
         elif event.type == QUIT:
             running = False
@@ -66,15 +67,11 @@ while running:
 
 
 
+
     if game:
         all_sprites.update(pressed_keys)
-
-        # Fill the screen with black
         gs.drawState(screen,player,images)
-        # if not neuphonicGameMode:
-        #     screen.fill("purple")  # Fill the display with a solid color
-        # if neuphonicGameMode:
-        #     screen.fill("red")
+
 
         # Draw the player on the screen
         all_sprites.draw(screen)
@@ -90,8 +87,13 @@ while running:
         menu.update(screen,images)
 
 
+    all_sprites.draw(screen)
+
+
     # Update the display
     pygame.display.flip()  # Refresh on-screen display
+
     clock.tick(60)
+
 
 win = pygame.display.set_mode((1920,960))

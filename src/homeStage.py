@@ -27,7 +27,7 @@ class homeStage:
         elif houseCount ==2:
             self.loadZones = [loadZone(768,368, 3, 0, 384),loadZone(768,400, 3, 0, 384)]
         elif houseCount ==3:
-            self.loadZones = [loadZone(576,768, 3, 592, 48),loadZone(608,768, 3, 592, 48)]
+            self.loadZones = [loadZone(576,768, 3, 592, 48),loadZone(608,768, 4, 592, 48)]
 
 
 

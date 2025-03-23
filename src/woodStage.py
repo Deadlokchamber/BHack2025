@@ -35,6 +35,8 @@ class WoodStage:
                     self.mobs.append(Mob(self, col, row))
                 if tile == 'W':
                     self.goal = Wood(self, col, row)
+                if tile == 'E':
+                    self.goal = Exit(self,col,row)
         self.camera = Camera(self.map.width, self.map.height)
 
     def run(self):

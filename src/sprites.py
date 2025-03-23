@@ -27,7 +27,7 @@ class Player(Player):
         self.image_down = pg.image.load('../Images/Clunk/clunk-backward.png')
         self.image_left = pg.image.load('../Images/Clunk/clunk-left.png')
         self.image_right = pg.image.load('../Images/Clunk/clunk-right.png')
-        self.groups = game.all_sprites
+        self.groups = game.all_sprites, game.walls
         pg.sprite.Sprite.__init__(self, self.groups)
         self.game = game
         self.image = self.image_up
@@ -116,7 +116,7 @@ class Mob(pg.sprite.Sprite):
         self.image_down = pg.image.load('../Images/Ent/down.png')
         self.image_left = pg.image.load('../Images/Ent/left.png')
         self.image_right = pg.image.load('../Images/Ent/right.png')
-        self.groups = game.all_sprites
+        self.groups = game.all_sprites, game.walls
         pg.sprite.Sprite.__init__(self, self.groups)
         self.game = game
         self.image = self.image_up
@@ -173,6 +173,19 @@ class Mob(pg.sprite.Sprite):
         self.image = pg.transform.scale(self.image, (70, 70))
 
      
+class Exit(pg.sprite.Sprite):
+    def __init__(self, game, x, y):
+        self.groups = game.all_sprites
+        pg.sprite.Sprite.__init__(self, self.groups)
+        self.game = game
+        self.image = pg.Surface((TILESIZE, TILESIZE))
+        self.image.fill(YELLOW)
+        self.image = pg.transform.scale(self.image, (70, 70))
+        self.rect = self.image.get_rect()
+        self.x = x
+        self.y = y
+        self.rect.x = x * TILESIZE
+        self.rect.y = y * TILESIZE
 
 class Wall(pg.sprite.Sprite):
     def __init__(self, game, x, y):

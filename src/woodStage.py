@@ -21,7 +21,7 @@ class WoodStage:
 
         
     def load_data(self):
-        self.mapno = random.randint(1, 6)
+        self.mapno = random.randint(1, 5)
         self.map = Map("map{}.txt".format(self.mapno*2))
         self.background = pg.image.load('../Images/treeback.png') 
         
@@ -95,6 +95,7 @@ class WoodStage:
 
     def hit(self):
         self.player.hit()
+        self.moveMobs()
     
 
 
